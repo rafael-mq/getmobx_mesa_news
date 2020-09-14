@@ -18,18 +18,8 @@ abstract class _LoginStoreBase with Store {
   @observable
   bool isLoading = false;
 
-  @action
-  setLoading(bool value) {
-    isLoading = value;
-  }
-
   @observable
   String errorMessage = "";
-
-  @action
-  setErrorMessage(msg) {
-    errorMessage = msg;
-  }
 
   @observable
   User user;
@@ -38,13 +28,27 @@ abstract class _LoginStoreBase with Store {
   bool get isAuthenticated => user != null;
 
   @action
+  setLoading(bool value) {
+    isLoading = value;
+  }
+
+  @action
+  setErrorMessage(msg) {
+    errorMessage = msg;
+  }
+
+  @action
+  setUser(User newUser) {
+    user = newUser;
+  }
+
+  @action
   doLogin() async {
     try {
-      print("doing login");
       setLoading(true);
-      await Future.delayed(Duration(milliseconds: 500));
-      user = await api.login(loginForm.credentials);
-      if (user != null) {
+      var newUser = await api.login(loginForm.credentials);
+      if (newUser != null) {
+        setUser(newUser);
         await Get.offNamed('/news');
       }
     } catch (e) {

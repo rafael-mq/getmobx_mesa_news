@@ -8,6 +8,17 @@ abstract class _LoginFormBase with Store {
   @observable
   String email;
 
+  @observable
+  String password;
+
+  @computed
+  Map<String, String> get credentials {
+    return {
+      "email": email,
+      "password": password,
+    };
+  }
+
   @action
   void changeEmail(value) {
     email = value.trim();
@@ -18,9 +29,6 @@ abstract class _LoginFormBase with Store {
     return null;
   }
 
-  @observable
-  String password;
-
   @action
   void changePassword(value) {
     password = value;
@@ -29,13 +37,5 @@ abstract class _LoginFormBase with Store {
   String validatePassword() {
     // TODO implemetar validação de email
     return null;
-  }
-
-  @computed
-  Map<String, String> get credentials {
-    return {
-      "email": email,
-      "password": password,
-    };
   }
 }
