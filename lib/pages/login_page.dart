@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
+import 'package:getmobx_mesa_news/components/custom_app_bar.dart';
+import 'package:getmobx_mesa_news/components/custom_text_field.dart';
 import 'package:getmobx_mesa_news/components/loading_view.dart';
 import 'package:getmobx_mesa_news/stores/login/login_store.dart';
 
@@ -11,19 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final store = Get.put(LoginStore());
-
-  Widget _textField({String label, Function onChanged, bool obscure: false}) {
-    return TextField(
-      obscureText: obscure,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: label,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          filled: true,
-          fillColor: Color(0xFFF0F0F0)),
-    );
-  }
 
   Widget _renderErrorMessage(LoginStore store) {
     if (store.errorMessage.isEmpty) {
@@ -64,14 +53,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0),
-                child: _textField(
+                child: CustomTextField(
                   label: "Email",
                   onChanged: (value) => store.loginForm.changeEmail(value),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15.0),
-                child: _textField(
+                child: CustomTextField(
                   obscure: true,
                   label: "Senha",
                   onChanged: (value) => store.loginForm.changePassword(value),
@@ -137,10 +126,8 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            title: Text("Entrar com e-mail"),
-            centerTitle: true,
+          appBar: customAppBar(
+            title: "Entrar com e-mail",
             leading: IconButton(
                 icon: Icon(
                   Icons.close,

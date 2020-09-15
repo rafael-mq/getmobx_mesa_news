@@ -25,6 +25,9 @@ abstract class _LoginStoreBase with Store {
   User user;
 
   @computed
+  String get token => user?.token;
+
+  @computed
   bool get isAuthenticated => user != null;
 
   @action
