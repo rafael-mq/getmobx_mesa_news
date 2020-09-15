@@ -13,15 +13,14 @@ abstract class _NewsStoreBase with Store {
   static const PER_PAGE = 10;
   int currPage = 1;
 
-  final list = ArticleListStore();
+  final articleList = ArticleListStore();
+  final highlightList = ArticleListStore();
   final loginStore = Get.find<LoginStore>();
   NewsApi api;
 
   _NewsStoreBase() {
     api = NewsApi(token: loginStore.token);
   }
-
-  ObservableList highlights = ObservableList<Article>();
 
   @observable
   String highlightsError;
@@ -32,10 +31,10 @@ abstract class _NewsStoreBase with Store {
   dynamic fetchHighlights() async {
     try {
       List<Article> arts = await api.fetchHighlights();
-      highlights.clear();
-      highlights.addAll(arts);
+      highlightList.clear();
+      highlightList.addArticles(arts);
     } catch (e) {
-      print(e);
+      print("erro 1 -> $e");
       setHighlightsError("Falha ao obter destaques.");
     }
   }
@@ -56,7 +55,7 @@ abstract class _NewsStoreBase with Store {
     try {
       FetchNewsResponse resp = await api.fetch(currentPage: currPage, perPage: PER_PAGE);
       incrementPagination(resp.pagination);
-      list.addArticles(resp.data);
+      articleList.addArticles(resp.data);
     } catch (e) {
       print(e);
       setListError("Falha ao obter últimas notícias");
@@ -72,7 +71,7 @@ abstract class _NewsStoreBase with Store {
   fetchAll() async {
     setLoading(true);
     var futures = <Future>[];
-    futures.add(fetchArticles());
+    // futures.add(fetchArticles());
     futures.add(fetchHighlights());
     await Future.wait(futures);
     setLoading(false);

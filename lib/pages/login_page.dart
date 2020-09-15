@@ -12,8 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final store = Get.put(LoginStore());
-
   Widget _renderErrorMessage(LoginStore store) {
     if (store.errorMessage.isEmpty) {
       return Container();
@@ -34,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget renderBody() {
+  Widget renderBody(LoginStore store) {
     return Observer(builder: (_) {
       if (store.isLoading) {
         return LoadingView();
@@ -123,6 +121,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final store = Get.put(LoginStore(), permanent: true);
+
     return Container(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () => print("close pressed")),
           ),
-          body: renderBody()),
+          body: renderBody(store)),
     );
   }
 }

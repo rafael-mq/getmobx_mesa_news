@@ -16,19 +16,19 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
       (_$hasArticlesComputed ??= Computed<bool>(() => super.hasArticles,
               name: '_ArticleListStoreBase.hasArticles'))
           .value;
-  Computed<ObservableList<Article>> _$favoriteArticlesComputed;
+  Computed<ObservableList<ArticleStore>> _$favoriteArticlesComputed;
 
   @override
-  ObservableList<Article> get favoriteArticles =>
-      (_$favoriteArticlesComputed ??= Computed<ObservableList<Article>>(
+  ObservableList<ArticleStore> get favoriteArticles =>
+      (_$favoriteArticlesComputed ??= Computed<ObservableList<ArticleStore>>(
               () => super.favoriteArticles,
               name: '_ArticleListStoreBase.favoriteArticles'))
           .value;
-  Computed<ObservableList<Article>> _$filteredArticlesComputed;
+  Computed<ObservableList<ArticleStore>> _$filteredArticlesComputed;
 
   @override
-  ObservableList<Article> get filteredArticles =>
-      (_$filteredArticlesComputed ??= Computed<ObservableList<Article>>(
+  ObservableList<ArticleStore> get filteredArticles =>
+      (_$filteredArticlesComputed ??= Computed<ObservableList<ArticleStore>>(
               () => super.filteredArticles,
               name: '_ArticleListStoreBase.filteredArticles'))
           .value;
@@ -36,13 +36,13 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
   final _$articlesAtom = Atom(name: '_ArticleListStoreBase.articles');
 
   @override
-  ObservableList<dynamic> get articles {
+  ObservableList<ArticleStore> get articles {
     _$articlesAtom.reportRead();
     return super.articles;
   }
 
   @override
-  set articles(ObservableList<dynamic> value) {
+  set articles(ObservableList<ArticleStore> value) {
     _$articlesAtom.reportWrite(value, super.articles, () {
       super.articles = value;
     });
@@ -73,6 +73,17 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
         name: '_ArticleListStoreBase.addArticles');
     try {
       return super.addArticles(newArticles);
+    } finally {
+      _$_ArticleListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic clear() {
+    final _$actionInfo = _$_ArticleListStoreBaseActionController.startAction(
+        name: '_ArticleListStoreBase.clear');
+    try {
+      return super.clear();
     } finally {
       _$_ArticleListStoreBaseActionController.endAction(_$actionInfo);
     }

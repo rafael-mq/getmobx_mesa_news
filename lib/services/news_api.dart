@@ -25,8 +25,9 @@ class NewsApi {
     try {
       var resp = await _client.get(url);
 
-      Pagination pagn = Pagination.fromJson(resp.data["pagination"]);
-      List<Article> list = List<Article>.from(resp.data["data"].map((art) => Article.fromJson(art)));
+      Pagination pagn = Pagination.fromJson(resp.data["pagination"] as Map<String, dynamic>);
+      List<Article> list =
+          (resp.data["data"] as List).map((art) => Article.fromJson(art as Map<String, dynamic>)).toList();
 
       return FetchNewsResponse(pagn, list);
     } on DioError catch (e) {
@@ -36,6 +37,10 @@ class NewsApi {
         print(e.message);
       }
       throw Exception(e.message);
+    } catch (e, stack) {
+      print(e);
+      print(stack);
+      return null;
     }
   }
 
@@ -43,8 +48,13 @@ class NewsApi {
     try {
       var resp = await _client.get("$_url/highlights");
 
-      List<Article> list = List<Article>.from(resp.data["data"].map((art) => Article.fromJson(art)));
-      return list;
+      List<dynamic> data = resp.data["data"] as List;
+      print("data type is ${data.runtimeType}");
+      print("data length is ${data.length}");
+
+      List<Article> mapped = data.map((dynamic e) => Article.fromJson(e as Map<String, dynamic>)).toList();
+
+      return mapped;
     } on DioError catch (e) {
       if (e.response != null) {
         print("${e.response.statusCode} -> ${e.response.data}");
@@ -52,6 +62,10 @@ class NewsApi {
         print(e.message);
       }
       throw Exception(e.message);
+    } catch (e, stack) {
+      print(e);
+      print(stack);
+      return [];
     }
   }
 }

@@ -9,10 +9,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  dio: 
-  flutter_mobx: 
-  mobx: 
-  get: 
+  flutter_mobx: ^1.1.0+2
+  mobx: ^1.2.1+2
+  get: ^3.10.2
+  dio: ^3.0.10
+  carousel_slider: ^2.2.1
 
   flutter:
     sdk: flutter
