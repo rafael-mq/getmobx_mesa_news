@@ -27,7 +27,7 @@ class _HighlightCarouselState extends State<HighlightCarousel> {
           Flexible(
             flex: 3,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(5.0),
               child: Image.network(
                 article.content.imageUrl,
                 height: 150,
@@ -36,9 +36,7 @@ class _HighlightCarouselState extends State<HighlightCarousel> {
               ),
             ),
           ),
-          SizedBox(
-            width: 10.0,
-          ),
+          SizedBox(width: 10.0),
           Flexible(
             flex: 4,
             child: Column(
@@ -48,8 +46,6 @@ class _HighlightCarouselState extends State<HighlightCarousel> {
                 Text(
                   article.content.title,
                   style: TextStyle(fontWeight: FontWeight.bold),
-                  // softWrap: true,
-
                   overflow: TextOverflow.ellipsis,
                   maxLines: 6,
                 ),
@@ -78,34 +74,16 @@ class _HighlightCarouselState extends State<HighlightCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              "Destaques",
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 150,
-              viewportFraction: 0.8,
-              disableCenter: true,
-              enableInfiniteScroll: false,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 10),
-            ),
-            items: news.highlightList.filteredArticles.map((art) => _highlightView(art)).toList(),
-          )
-        ],
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 150,
+        viewportFraction: 0.8,
+        disableCenter: true,
+        enableInfiniteScroll: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 10),
       ),
+      items: news.filteredHighlights.map((art) => _highlightView(art)).toList(),
     );
   }
 }

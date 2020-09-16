@@ -4,6 +4,7 @@ import 'package:getmobx_mesa_news/models/pagination_model.dart';
 import 'package:getmobx_mesa_news/services/news_api.dart';
 import 'package:getmobx_mesa_news/stores/login/login_store.dart';
 import 'package:getmobx_mesa_news/stores/news/article_list_store.dart';
+import 'package:getmobx_mesa_news/stores/news/article_store.dart';
 import 'package:mobx/mobx.dart';
 part 'news_store.g.dart';
 
@@ -34,7 +35,7 @@ abstract class _NewsStoreBase with Store {
       highlightList.clear();
       highlightList.addArticles(arts);
     } catch (e) {
-      print("erro 1 -> $e");
+      print("error at fetchHighlights -> $e");
       setHighlightsError("Falha ao obter destaques.");
     }
   }
@@ -55,9 +56,10 @@ abstract class _NewsStoreBase with Store {
     try {
       FetchNewsResponse resp = await api.fetch(currentPage: currPage, perPage: PER_PAGE);
       incrementPagination(resp.pagination);
-      articleList.addArticles(resp.data);
-    } catch (e) {
-      print(e);
+      articleList.addArticles(resp.data.where((el) => el.imageUrl != null).toList());
+    } catch (e, stack) {
+      print("aconteceu um erro => $e");
+      print(stack);
       setListError("Falha ao obter últimas notícias");
     }
   }
@@ -71,9 +73,26 @@ abstract class _NewsStoreBase with Store {
   fetchAll() async {
     setLoading(true);
     var futures = <Future>[];
-    // futures.add(fetchArticles());
+    futures.add(fetchArticles());
     futures.add(fetchHighlights());
     await Future.wait(futures);
     setLoading(false);
   }
+
+  @observable
+  bool filterFavorites = false;
+  @action
+  setFilterFavorites(bool value) {
+    filterFavorites = value;
+  }
+
+  @computed
+  List<ArticleStore> get filteredArticles => filterFavorites
+      ? ObservableList.of(articleList.articles.where((art) => art.favorite == true))
+      : articleList.articles;
+
+  @computed
+  List<ArticleStore> get filteredHighlights => filterFavorites
+      ? ObservableList.of(highlightList.articles.where((art) => art.favorite == true))
+      : highlightList.articles;
 }

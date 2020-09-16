@@ -9,6 +9,21 @@ part of 'news_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$NewsStore on _NewsStoreBase, Store {
+  Computed<List<ArticleStore>> _$filteredArticlesComputed;
+
+  @override
+  List<ArticleStore> get filteredArticles => (_$filteredArticlesComputed ??=
+          Computed<List<ArticleStore>>(() => super.filteredArticles,
+              name: '_NewsStoreBase.filteredArticles'))
+      .value;
+  Computed<List<ArticleStore>> _$filteredHighlightsComputed;
+
+  @override
+  List<ArticleStore> get filteredHighlights => (_$filteredHighlightsComputed ??=
+          Computed<List<ArticleStore>>(() => super.filteredHighlights,
+              name: '_NewsStoreBase.filteredHighlights'))
+      .value;
+
   final _$highlightsErrorAtom = Atom(name: '_NewsStoreBase.highlightsError');
 
   @override
@@ -51,6 +66,21 @@ mixin _$NewsStore on _NewsStoreBase, Store {
   set isLoading(bool value) {
     _$isLoadingAtom.reportWrite(value, super.isLoading, () {
       super.isLoading = value;
+    });
+  }
+
+  final _$filterFavoritesAtom = Atom(name: '_NewsStoreBase.filterFavorites');
+
+  @override
+  bool get filterFavorites {
+    _$filterFavoritesAtom.reportRead();
+    return super.filterFavorites;
+  }
+
+  @override
+  set filterFavorites(bool value) {
+    _$filterFavoritesAtom.reportWrite(value, super.filterFavorites, () {
+      super.filterFavorites = value;
     });
   }
 
@@ -114,11 +144,25 @@ mixin _$NewsStore on _NewsStoreBase, Store {
   }
 
   @override
+  dynamic setFilterFavorites(bool value) {
+    final _$actionInfo = _$_NewsStoreBaseActionController.startAction(
+        name: '_NewsStoreBase.setFilterFavorites');
+    try {
+      return super.setFilterFavorites(value);
+    } finally {
+      _$_NewsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 highlightsError: ${highlightsError},
 listError: ${listError},
-isLoading: ${isLoading}
+isLoading: ${isLoading},
+filterFavorites: ${filterFavorites},
+filteredArticles: ${filteredArticles},
+filteredHighlights: ${filteredHighlights}
     ''';
   }
 }

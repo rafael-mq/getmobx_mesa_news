@@ -21,10 +21,15 @@ abstract class _ArticleListStoreBase with Store {
 
   @observable
   bool filterFavorites = false;
+  @action
+  setFilterFavorites(bool value) {
+    filterFavorites = value;
+  }
 
   @action
   addArticles(List<Article> newArticles) {
-    articles.addAll(newArticles.map((art) => ArticleStore(art)));
+    // articles.addAll(newArticles.map((art) => ArticleStore(art)));
+    articles.insertAll(0, newArticles.map((art) => ArticleStore(art)));
   }
 
   @action

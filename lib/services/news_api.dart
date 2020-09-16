@@ -19,15 +19,15 @@ class NewsApi {
 
   Future<FetchNewsResponse> fetch({int currentPage, int perPage, String publishedAt}) async {
     var url =
-        "?current_page=${currentPage ?? ''}" + "&per_page=${currentPage ?? ''}" + "&published_at=${publishedAt ?? ''}";
-    print(url);
+        "$_url?current_page=${currentPage ?? ''}" + "&per_page=${perPage ?? ''}" + "&published_at=${publishedAt ?? ''}";
 
     try {
       var resp = await _client.get(url);
 
       Pagination pagn = Pagination.fromJson(resp.data["pagination"] as Map<String, dynamic>);
-      List<Article> list =
-          (resp.data["data"] as List).map((art) => Article.fromJson(art as Map<String, dynamic>)).toList();
+
+      List<dynamic> data = resp.data["data"] as List;
+      List<Article> list = data.map((dynamic e) => Article.fromJson(e as Map<String, dynamic>)).toList();
 
       return FetchNewsResponse(pagn, list);
     } on DioError catch (e) {
@@ -38,7 +38,7 @@ class NewsApi {
       }
       throw Exception(e.message);
     } catch (e, stack) {
-      print(e);
+      print("erro no fetch -> $e");
       print(stack);
       return null;
     }
@@ -49,9 +49,6 @@ class NewsApi {
       var resp = await _client.get("$_url/highlights");
 
       List<dynamic> data = resp.data["data"] as List;
-      print("data type is ${data.runtimeType}");
-      print("data length is ${data.length}");
-
       List<Article> mapped = data.map((dynamic e) => Article.fromJson(e as Map<String, dynamic>)).toList();
 
       return mapped;

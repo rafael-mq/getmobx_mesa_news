@@ -68,6 +68,17 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
       ActionController(name: '_ArticleListStoreBase');
 
   @override
+  dynamic setFilterFavorites(bool value) {
+    final _$actionInfo = _$_ArticleListStoreBaseActionController.startAction(
+        name: '_ArticleListStoreBase.setFilterFavorites');
+    try {
+      return super.setFilterFavorites(value);
+    } finally {
+      _$_ArticleListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic addArticles(List<Article> newArticles) {
     final _$actionInfo = _$_ArticleListStoreBaseActionController.startAction(
         name: '_ArticleListStoreBase.addArticles');
