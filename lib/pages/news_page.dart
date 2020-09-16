@@ -28,7 +28,6 @@ class _NewsPageState extends State<NewsPage> {
     return Observer(builder: (_) {
       return Container(
         margin: EdgeInsets.all(15),
-        color: Colors.white,
         child: news.isLoading
             ? LoadingView()
             : Column(

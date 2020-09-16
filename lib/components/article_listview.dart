@@ -75,8 +75,8 @@ class ArticleListView extends StatelessWidget {
         child: RefreshIndicator(
           onRefresh: () => news.fetchArticles(),
           child: ListView.builder(
-            // shrinkWrap: true,
-            itemCount: news.articleList.filteredArticles.length,
+            shrinkWrap: true,
+            itemCount: news.filteredArticles.length,
             itemBuilder: (_, index) {
               final article = news.filteredArticles[index];
               return _articleView(article);
