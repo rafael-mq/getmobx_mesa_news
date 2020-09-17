@@ -1,16 +1,23 @@
-# getmobx_mesa_news
+# Mesa News
 
-A new Flutter project.
+App de notícias feito com Flutter capaz de registrar novos usuários e autenticar existentes. Mostra notícias em destaque  
+Usa as bibliotecas Mobx para gerenciamento de estado, e Get para injeção de dependências e navegação.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- [x] Autenticação de usuários
+- [ ] Validação dos campos nome e email
+- [x] Registro de usuários
+- [ ] Validação dos campos do formulário de registro
+- [x] Carrossel com notícias em destaque
+- [x] Lista infinita de notícias feita com paginação da API
+- [x] Opção de "favoritar" notícias
+- [x] Filtro de favoritos
+- [ ] Ordenação por datas
+- [ ] Filtragem por datas
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image 1](/screenshots/Screenshot_1.png)
+![image 2](/screenshots/Screenshot_2.png)
+![image 3](/screenshots/Screenshot_3.png)
