@@ -13,14 +13,14 @@ abstract class _HighlightListStoreBase with Store {
   @computed
   bool get hasArticles => articles.length > 0;
 
-  @computed
-  ObservableList<Article> get favoriteHighlights => ObservableList.of(articles.where((art) => art.favorite == true));
+  // @computed
+  // ObservableList<Article> get favoriteHighlights => ObservableList.of(articles.where((art) => art.favorite == true));
 
-  @computed
-  ObservableList<Article> get filteredHighlights => filterFavorites ? favoriteHighlights : articles;
+  // @computed
+  // ObservableList<Article> get filteredHighlights => filterFavorites ? favoriteHighlights : articles;
 
-  @observable
-  bool filterFavorites = false;
+  // @observable
+  // bool filterFavorites = false;
 
   @action
   addArticles(List<Article> newArticles) {

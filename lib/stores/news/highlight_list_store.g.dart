@@ -16,22 +16,6 @@ mixin _$HighlightListStore on _HighlightListStoreBase, Store {
       (_$hasArticlesComputed ??= Computed<bool>(() => super.hasArticles,
               name: '_HighlightListStoreBase.hasArticles'))
           .value;
-  Computed<ObservableList<Article>> _$favoriteHighlightsComputed;
-
-  @override
-  ObservableList<Article> get favoriteHighlights =>
-      (_$favoriteHighlightsComputed ??= Computed<ObservableList<Article>>(
-              () => super.favoriteHighlights,
-              name: '_HighlightListStoreBase.favoriteHighlights'))
-          .value;
-  Computed<ObservableList<Article>> _$filteredHighlightsComputed;
-
-  @override
-  ObservableList<Article> get filteredHighlights =>
-      (_$filteredHighlightsComputed ??= Computed<ObservableList<Article>>(
-              () => super.filteredHighlights,
-              name: '_HighlightListStoreBase.filteredHighlights'))
-          .value;
 
   final _$articlesAtom = Atom(name: '_HighlightListStoreBase.articles');
 
@@ -45,22 +29,6 @@ mixin _$HighlightListStore on _HighlightListStoreBase, Store {
   set articles(ObservableList<dynamic> value) {
     _$articlesAtom.reportWrite(value, super.articles, () {
       super.articles = value;
-    });
-  }
-
-  final _$filterFavoritesAtom =
-      Atom(name: '_HighlightListStoreBase.filterFavorites');
-
-  @override
-  bool get filterFavorites {
-    _$filterFavoritesAtom.reportRead();
-    return super.filterFavorites;
-  }
-
-  @override
-  set filterFavorites(bool value) {
-    _$filterFavoritesAtom.reportWrite(value, super.filterFavorites, () {
-      super.filterFavorites = value;
     });
   }
 
@@ -82,10 +50,7 @@ mixin _$HighlightListStore on _HighlightListStoreBase, Store {
   String toString() {
     return '''
 articles: ${articles},
-filterFavorites: ${filterFavorites},
-hasArticles: ${hasArticles},
-favoriteHighlights: ${favoriteHighlights},
-filteredHighlights: ${filteredHighlights}
+hasArticles: ${hasArticles}
     ''';
   }
 }

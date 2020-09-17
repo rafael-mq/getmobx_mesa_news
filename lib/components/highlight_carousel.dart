@@ -74,16 +74,18 @@ class _HighlightCarouselState extends State<HighlightCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: 150,
-        viewportFraction: 0.8,
-        disableCenter: true,
-        enableInfiniteScroll: false,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 10),
-      ),
-      items: news.filteredHighlights.map((art) => _highlightView(art)).toList(),
-    );
+    return Observer(builder: (_) {
+      return CarouselSlider(
+        options: CarouselOptions(
+          height: 150,
+          viewportFraction: 0.8,
+          disableCenter: true,
+          enableInfiniteScroll: false,
+          autoPlay: true,
+          autoPlayInterval: Duration(seconds: 10),
+        ),
+        items: news.filteredHighlights.map((art) => _highlightView(art)).toList(),
+      );
+    });
   }
 }

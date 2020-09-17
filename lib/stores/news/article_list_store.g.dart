@@ -16,22 +16,6 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
       (_$hasArticlesComputed ??= Computed<bool>(() => super.hasArticles,
               name: '_ArticleListStoreBase.hasArticles'))
           .value;
-  Computed<ObservableList<ArticleStore>> _$favoriteArticlesComputed;
-
-  @override
-  ObservableList<ArticleStore> get favoriteArticles =>
-      (_$favoriteArticlesComputed ??= Computed<ObservableList<ArticleStore>>(
-              () => super.favoriteArticles,
-              name: '_ArticleListStoreBase.favoriteArticles'))
-          .value;
-  Computed<ObservableList<ArticleStore>> _$filteredArticlesComputed;
-
-  @override
-  ObservableList<ArticleStore> get filteredArticles =>
-      (_$filteredArticlesComputed ??= Computed<ObservableList<ArticleStore>>(
-              () => super.filteredArticles,
-              name: '_ArticleListStoreBase.filteredArticles'))
-          .value;
 
   final _$articlesAtom = Atom(name: '_ArticleListStoreBase.articles');
 
@@ -48,35 +32,8 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
     });
   }
 
-  final _$filterFavoritesAtom =
-      Atom(name: '_ArticleListStoreBase.filterFavorites');
-
-  @override
-  bool get filterFavorites {
-    _$filterFavoritesAtom.reportRead();
-    return super.filterFavorites;
-  }
-
-  @override
-  set filterFavorites(bool value) {
-    _$filterFavoritesAtom.reportWrite(value, super.filterFavorites, () {
-      super.filterFavorites = value;
-    });
-  }
-
   final _$_ArticleListStoreBaseActionController =
       ActionController(name: '_ArticleListStoreBase');
-
-  @override
-  dynamic setFilterFavorites(bool value) {
-    final _$actionInfo = _$_ArticleListStoreBaseActionController.startAction(
-        name: '_ArticleListStoreBase.setFilterFavorites');
-    try {
-      return super.setFilterFavorites(value);
-    } finally {
-      _$_ArticleListStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic addArticles(List<Article> newArticles) {
@@ -104,10 +61,7 @@ mixin _$ArticleListStore on _ArticleListStoreBase, Store {
   String toString() {
     return '''
 articles: ${articles},
-filterFavorites: ${filterFavorites},
-hasArticles: ${hasArticles},
-favoriteArticles: ${favoriteArticles},
-filteredArticles: ${filteredArticles}
+hasArticles: ${hasArticles}
     ''';
   }
 }

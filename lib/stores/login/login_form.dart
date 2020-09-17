@@ -35,7 +35,7 @@ abstract class _LoginFormBase with Store {
   }
 
   String validatePassword() {
-    // TODO implemetar validação de email
+    // TODO implemetar validação de senha
     return null;
   }
 }

@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: CustomTextField(
                   obscure: true,
                   label: "Senha",
@@ -71,8 +71,12 @@ class _LoginPageState extends State<LoginPage> {
                     store.doLogin();
                   },
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                  child: Text(
-                    "Login",
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
@@ -95,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 15.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -104,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
                     InkWell(
+                      onTap: () => Get.toNamed("/register"),
                       child: Text(
                         "Cadastrar",
                         style: TextStyle(color: Theme.of(context).accentColor),

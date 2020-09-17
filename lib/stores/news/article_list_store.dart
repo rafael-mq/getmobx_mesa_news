@@ -13,23 +13,23 @@ abstract class _ArticleListStoreBase with Store {
   @computed
   bool get hasArticles => articles.length > 0;
 
-  @computed
-  ObservableList<ArticleStore> get favoriteArticles => ObservableList.of(articles.where((art) => art.favorite == true));
+  // @computed
+  // ObservableList<ArticleStore> get favoriteArticles => ObservableList.of(articles.where((art) => art.favorite == true));
 
-  @computed
-  ObservableList<ArticleStore> get filteredArticles => filterFavorites ? favoriteArticles : articles;
+  // @computed
+  // ObservableList<ArticleStore> get filteredArticles => filterFavorites ? favoriteArticles : articles;
 
-  @observable
-  bool filterFavorites = false;
-  @action
-  setFilterFavorites(bool value) {
-    filterFavorites = value;
-  }
+  // @observable
+  // bool filterFavorites = false;
+  // @action
+  // setFilterFavorites(bool value) {
+  //   filterFavorites = value;
+  // }
 
   @action
   addArticles(List<Article> newArticles) {
-    // articles.addAll(newArticles.map((art) => ArticleStore(art)));
-    articles.insertAll(0, newArticles.map((art) => ArticleStore(art)));
+    articles.addAll(newArticles.map((art) => ArticleStore(art)));
+    // articles.insertAll(0, newArticles.map((art) => ArticleStore(art)));
   }
 
   @action

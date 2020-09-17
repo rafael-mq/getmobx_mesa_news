@@ -72,17 +72,21 @@ class ArticleListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Flexible(
-        child: RefreshIndicator(
-          onRefresh: () => news.fetchArticles(),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: news.filteredArticles.length,
-            itemBuilder: (_, index) {
-              final article = news.filteredArticles[index];
-              return _articleView(article);
-            },
-          ),
+        // child: RefreshIndicator(
+        //   onRefresh: () => news.fetchArticles(),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: news.filteredArticles.length,
+          itemBuilder: (_, index) {
+            if (index == news.filteredArticles.length - 1) {
+              news.fetchArticles();
+              // print("loading more...");
+            }
+            final article = news.filteredArticles[index];
+            return _articleView(article);
+          },
         ),
+        // ),
       );
     });
   }
